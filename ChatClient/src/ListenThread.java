@@ -5,6 +5,7 @@ import java.net.Socket;
 /**
  * Created by kyle on 9/22/15.
  */
+
 public class ListenThread extends Thread {
 
     private ChatClient client;
@@ -19,7 +20,7 @@ public class ListenThread extends Thread {
     public void run(){
         try{
             while(true){
-                String message = client.getInputStream().readUTF();
+                String message = client.getUserName() + ";" + client.getInputStream().readUTF();
                 client.showMessage(message);
             }
         }catch(EOFException e){

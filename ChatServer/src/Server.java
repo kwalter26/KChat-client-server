@@ -24,9 +24,9 @@ public class Server {
 
         try{
             this.serverSocket = new ServerSocket(this.port);
-            showMessage("server","Connection initiated on " + this.serverSocket.getLocalSocketAddress());
+            showMessage("server;Connection initiated on " + this.serverSocket.getLocalSocketAddress());
         }catch(IOException e){
-            showMessage("server","Initial connection failed");
+            showMessage("server;Initial connection failed");
             System.exit(1);
         }
         listen();
@@ -37,8 +37,7 @@ public class Server {
             try{
                 Socket client = serverSocket.accept();
                 DataOutputStream dout = new DataOutputStream(client.getOutputStream());
-                dout.writeUTF(serverName);
-                dout.writeUTF("Welcome to Kali-Chat");
+                dout.writeUTF(serverName + ";Welcome to Kali-Chat");
                 douts.put(client,dout);
                 new ServerThread(this,client);
             }catch(IOException e){
@@ -67,8 +66,9 @@ public class Server {
         }
     }
 
-    public void showMessage(String userName,String message){
-        System.out.println("<" + userName + "> " + message);
+    public void showMessage(String message){
+        String[] messages = message.split(";");
+        System.out.println("<" + messages[0] + "> " + messages[1] + "\n");
     }
 
     public static void main(String[] args){

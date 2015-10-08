@@ -30,6 +30,7 @@ public class ChatClient {
     private String host;
     private int port;
     private String hostName;
+    private String userName;
 
 
     public ChatClient() {
@@ -48,8 +49,9 @@ public class ChatClient {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    outputStream.writeUTF(messageTextField.getText());
-                    showMessage(messageTextField.getText());
+                    String message = userName + ";" + messageTextField.getText();
+                    outputStream.writeUTF(message);
+                    showMessage(message);
                     messageTextField.setText("");
                 }catch (IOException ioe){
 
@@ -91,9 +93,10 @@ public class ChatClient {
             connection = new Socket(host,port);
             inputStream = new DataInputStream(connection.getInputStream());
             hostName = inputStream.readUTF();
+            userName = usernameTextField.getText();
             outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.flush();
-            outputStream.writeUTF(usernameTextField.getText());
+            outputStream.writeUTF(userName);
             showMessage("Connected to " + hostName);
             new ListenThread(this);
         }catch (IOException ioe){
@@ -106,7 +109,8 @@ public class ChatClient {
     }
 
     public void showMessage(String message){
-        chatTextArea.append("<"+usernameTextField.getText()+"> "+message + "\n");
+        String[] messages = message.split(";");
+        chatTextArea.append("<"+messages[0] +"> "+messages[1] + "\n");
     }
 
     public DataInputStream getInputStream(){
@@ -116,6 +120,7 @@ public class ChatClient {
     public String getHostName(){
         return this.hostName;
     }
+    public String getUserName() { return this.userName; }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("ChatClient");

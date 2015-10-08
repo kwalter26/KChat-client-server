@@ -21,16 +21,16 @@ public class ServerThread extends Thread {
         try{
             din = new DataInputStream(client.getInputStream());
             userName = din.readUTF();
-            server.showMessage("server",userName + " connected on " + client.getLocalSocketAddress());
+            server.showMessage("server;" + userName + " connected on " + client.getLocalSocketAddress());
             while(true){
                 String message = din.readUTF();
-                server.showMessage(userName,message);
+                server.showMessage(message);
                 server.messageAll(message);
             }
         }catch(EOFException e){
-            server.showMessage("server","Connection closed by " + userName);
+            server.showMessage("server;Connection closed by " + userName);
         }catch(IOException e){
-            server.showMessage("server","Connection failed");
+            server.showMessage("server;Connection failed");
         }finally {
 
         }
