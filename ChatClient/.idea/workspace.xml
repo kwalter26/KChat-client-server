@@ -6,21 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cf32a1d-3a6e-4282-8659-cc7c2d60bd56" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ChatClient/ChatClient$1.class" afterPath="$PROJECT_DIR$/out/production/ChatClient/ChatClient$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ChatClient/ChatClient$2.class" afterPath="$PROJECT_DIR$/out/production/ChatClient/ChatClient$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ChatClient/ChatClient.class" afterPath="$PROJECT_DIR$/out/production/ChatClient/ChatClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ChatClient/ListenThread.class" afterPath="$PROJECT_DIR$/out/production/ChatClient/ListenThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ChatServer/out/production/chatServer/ServerThread.class" afterPath="$PROJECT_DIR$/../ChatServer/out/production/chatServer/ServerThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ChatServer/out/artifacts/chatServer_jar/chatServer.jar" afterPath="$PROJECT_DIR$/../ChatServer/out/artifacts/chatServer_jar/chatServer.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ChatClient.java" afterPath="$PROJECT_DIR$/src/ChatClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ListenThread.java" afterPath="$PROJECT_DIR$/src/ListenThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ChatServer/src/Server.java" afterPath="$PROJECT_DIR$/../ChatServer/src/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ChatServer/src/ServerThread.java" afterPath="$PROJECT_DIR$/../ChatServer/src/ServerThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ChatServer/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ChatServer/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="6cf32a1d-3a6e-4282-8659-cc7c2d60bd56" name="Default" comment="" />
     <ignored path="ChatClient.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -397,12 +383,12 @@
       <workItem from="1442972537782" duration="11919000" />
       <workItem from="1444517582591" duration="4724000" />
       <workItem from="1444712403951" duration="628000" />
-      <workItem from="1445919874496" duration="363000" />
+      <workItem from="1445919874496" duration="460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17634000" />
+    <option name="totallyTimeSpent" value="17731000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="26" y="65" width="1266" height="916" extended-state="0" />
