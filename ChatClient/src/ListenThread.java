@@ -20,13 +20,13 @@ public class ListenThread extends Thread {
     public void run(){
         try{
             while(true){
-                String message = client.getUserName() + ";" + client.getInputStream().readUTF();
+                String message = client.getInputStream().readUTF();
                 client.showMessage(message);
             }
         }catch(EOFException e){
-            client.showMessage("Connection to " + client.getHostName() + " lost");
+            client.showMessage("client;Connection to " + client.getHostName() + " lost");
         }catch(IOException e){
-            client.showMessage("Connection to " + client.getHostName() + " failed");
+            client.showMessage("client;Connection to " + client.getHostName() + " failed");
         }
     }
 }

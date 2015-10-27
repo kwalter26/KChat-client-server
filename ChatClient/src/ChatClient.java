@@ -34,14 +34,19 @@ public class ChatClient {
 
 
     public ChatClient() {
-
+        leaveButton.setEnabled(false);
+        sendButton.setEnabled(false);
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isValid()){
                     host = hostTextField.getText();
                     port = Integer.parseInt(portTextField.getText());
-                    connect();
+                    if(connect()) {
+                        connectButton.setEnabled(false);
+                        leaveButton.setEnabled(true);
+                        sendButton.setEnabled(true);
+                    };
                 }
             }
         });
@@ -51,10 +56,24 @@ public class ChatClient {
                 try{
                     String message = userName + ";" + messageTextField.getText();
                     outputStream.writeUTF(message);
-                    showMessage(message);
                     messageTextField.setText("");
                 }catch (IOException ioe){
 
+                }
+            }
+        });
+        leaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    outputStream.close();
+                    inputStream.close();
+                    connection.close();
+                    connectButton.setEnabled(true);
+                    leaveButton.setEnabled(false);
+                    sendButton.setEnabled(false);
+                }catch(IOException eio){
+                    eio.printStackTrace();
                 }
             }
         });
@@ -84,23 +103,27 @@ public class ChatClient {
             message += "port ";
             answer = false;
         }
-        if(!answer) showMessage(message);
+        if(!answer) showMessage("client;" + message);
         return answer;
     }
 
-    private void connect(){
+    private boolean connect(){
         try{
             connection = new Socket(host,port);
             inputStream = new DataInputStream(connection.getInputStream());
-            hostName = inputStream.readUTF();
+            String message = inputStream.readUTF();
+            showMessage(message);
+            hostName = message.split(";")[0];
             userName = usernameTextField.getText();
             outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.flush();
             outputStream.writeUTF(userName);
-            showMessage("Connected to " + hostName);
+
             new ListenThread(this);
+            return true;
         }catch (IOException ioe){
-            showMessage("Could not connect to host");
+            showMessage("client;Could not connect to host");
+            return false;
         }
     }
 

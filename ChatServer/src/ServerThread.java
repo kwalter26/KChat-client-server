@@ -22,6 +22,7 @@ public class ServerThread extends Thread {
             din = new DataInputStream(client.getInputStream());
             userName = din.readUTF();
             server.showMessage("server;" + userName + " connected on " + client.getLocalSocketAddress());
+            server.messageAll("Kali-Chat;" + userName + " entered chat");
             while(true){
                 String message = din.readUTF();
                 server.showMessage(message);
@@ -29,6 +30,7 @@ public class ServerThread extends Thread {
             }
         }catch(EOFException e){
             server.showMessage("server;Connection closed by " + userName);
+            server.messageAll("Kali-chat;" + userName + " left chat");
         }catch(IOException e){
             server.showMessage("server;Connection failed");
         }finally {
