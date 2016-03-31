@@ -3,6 +3,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -15,17 +16,17 @@ public class Server {
     private int port;
     private ServerSocket serverSocket;
     private String serverName = "Kali-Chat";
-    private Hashtable douts = new Hashtable();
+    private ArrayList<Client> clients;
 
     public Server(String host, String port) {
 
         this.host = host;
         this.port = Integer.parseInt(port);
-
+        this.clients = new ArrayList();
 
         try{
             this.serverSocket = new ServerSocket(this.port);
-            showMessage("server;Connection initiated on " + this.serverSocket.getLocalSocketAddress());
+            showMessage("server;Server Listening on port " + this.serverSocket.getLocalPort());
         }catch(IOException e){
             showMessage("server;Initial connection failed");
             System.exit(1);
@@ -36,40 +37,59 @@ public class Server {
     private void listen(){
         while(true){
             try{
-                Socket client = serverSocket.accept();
-                DataOutputStream dout = new DataOutputStream(client.getOutputStream());
-                dout.writeUTF(serverName + ";Welcome to Kali-Chat");
-                douts.put(client,dout);
-                new ServerThread(this,client);
+                Client newClient = new Client(serverSocket.accept());
+                new ServerThread(this,newClient);
             }catch(IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public String getServerName(){
-        return this.serverName;
-    }
+//    public String getServerName(){
+//        return this.serverName;
+//    }
 
-    Enumeration getOutputStreams() {
-        return douts.elements();
-    }
+//    Enumeration getOutputStreams() {
+//        return douts.elements();
+//    }
 
-    public void messageAll(String message) {
-
-        synchronized (douts) {
-            for (Enumeration e = getOutputStreams(); e.hasMoreElements(); ) {
-                DataOutputStream dout = (DataOutputStream)e.nextElement();
-                try {
-                    dout.writeUTF(message);
-                } catch( IOException ie ) { System.out.println( ie ); }
-            }
-        }
-    }
+//    public void messageAll(String message) {
+//        synchronized (douts) {
+//            for (Enumeration e = getOutputStreams(); e.hasMoreElements(); ) {
+//                DataOutputStream dout = (DataOutputStream)e.nextElement();
+//                try {
+//                    dout.writeUTF(message);
+//                } catch( IOException ie ) { System.out.println( ie ); }
+//            }
+//        }
+//    }
 
     public void showMessage(String message){
         String[] messages = message.split(";");
-        System.out.println("<" + messages[0] + "> " + messages[1] + "\n");
+        System.out.println("<" + messages[0] + "> " + messages[1]);
+    }
+
+    public void addClient(Client client){
+        clients.add(client);
+    }
+
+    public Client getPartner(String name){
+        for(int i = 0; i < clients.size();i++) {
+           if(clients.get(i).getName().equals(name) && !clients.get(i).isBusy()){
+                return clients.get(i);
+           }
+        }
+        return null;
+    }
+
+    public String sendList(){
+        String message = "Server List";
+        for(int i = 0; i < clients.size();i++) {
+            message += ("\n<"+i+"> "+clients.get(i).getName());
+        }
+
+
+        return message;
     }
 
     public static void main(String[] args){
