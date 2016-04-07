@@ -31,7 +31,9 @@ public class ListenThread extends Thread {
                             break;
                         case "accept":
                             client.show("server;Talk connection established with " + messages[2]);
-                            client.write("server","chatting");
+                            client.write("chatting","server");
+                            break;
+                        case "chatting":
                             break;
                         default:
                             client.show(message);

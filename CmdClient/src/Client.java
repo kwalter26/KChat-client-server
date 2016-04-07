@@ -60,8 +60,8 @@ public class Client {
                 output.writeUTF(user + ";" + messages[0] + ";" + messages[1]);
             }else{
                 output.writeUTF(user + ";" + message);
+                if(!messages[0].equals("chatting")) show(user + ";" + message);
             }
-            if(!messages[1].equals("chatting")) show(user + ";" + message);
         }else {
             show(user + ";No Message");
         }
@@ -73,7 +73,7 @@ public class Client {
     }
 
     public static void main(String[] args){
-        new Client("localhost",8123);
+        new Client(args[0],Integer.parseInt(args[1]));
     }
 
 
